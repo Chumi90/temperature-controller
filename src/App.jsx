@@ -6,27 +6,32 @@ import HistoryList from "./components/HistoryList";
 
 function App () {
 
-  const [temp, setTemp] = useState(20);
-  const [hist, setHist] = useState({
-    hour: toLocaleTimeString(),
-    temperature: temp
-  });
-
+  const event = new Date
   
+  const [temp, setTemp] = useState(20);
+  let [hist, setHist] = useState([
+    {id: 1, hour: event.toLocaleTimeString(), temperature: 20}]);
 
   const upTemp = () => {
     temp < 40 ? setTemp(temp + 1) : setTemp(temp)
-    setHist([...hist, {hour: toLocaleTimeString(), temperature: temp}])
+    if (temp < 40) {
+      setHist([...hist, {id: hist.length + 1, hour: event.toLocaleTimeString(), temperature: temp + 1}])
+
+    }
   }
 
   const downTemp = () => {
     temp > 0 ? setTemp(temp - 1) : setTemp(temp)
-    setHist([...hist, {hour: toLocaleTimeString(), temperature: temp}])
+    if (temp > 0) {
+      setHist([...hist, {id: hist.length + 1, hour: event.toLocaleTimeString(), temperature: temp - 1}])
+
+    }
+
   }
 
   const reset = () => {
     setTemp(20)
-    setHist([...hist, {hour: toLocaleTimeString(), temperature: temp}])
+    setHist([{id: 1, hour: event.toLocaleTimeString(), temperature: 20}]);
   }
 
 
@@ -41,7 +46,15 @@ function App () {
         onReset={reset}
       />
       <TemperatureDisplay temp={temp}/>
-      <HistoryList hist={hist}/>
+      <div>
+        <ul>
+        {hist.map(capture => (
+          <HistoryList
+            key={hist.id}
+            onHistory={capture}/>
+        ))}
+        </ul>
+      </div>
     </div>
     </>
   )

@@ -1,14 +1,11 @@
-function HistoryList ({hist}) {
+import React from "react";
+
+function HistoryList ({onHistory}) {
     return (
         <>
-            <ul>
-                {hist.map(e => 
-                <li>
-                    <p>{e.hour} - {e.temp}</p>
-                </li>
-                )}
-                
-            </ul>
+        <li>
+            <p>Captura: {onHistory.id} - {onHistory.hour} - {onHistory.temperature}</p>
+        </li>
         </>
     )
 }

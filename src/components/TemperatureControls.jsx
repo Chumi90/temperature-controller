@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 function TemperatureControls ({onTemp, onTempDown, onReset}) {
 
     return (
