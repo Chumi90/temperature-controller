@@ -10,31 +10,38 @@ function App () {
   
   const [temp, setTemp] = useState(20);
   let [hist, setHist] = useState([
-    {id: 1, hour: event.toLocaleTimeString(), temperature: 20}]);
+    { id: 1, hour: event.toLocaleTimeString(), temperature: 20 }
+  ]);
 
   const upTemp = () => {
     temp < 40 ? setTemp(temp + 1) : setTemp(temp)
     if (temp < 40) {
-      setHist([...hist, {id: hist.length + 1, hour: event.toLocaleTimeString(), temperature: temp + 1}])
+      setHist([...hist, { id: hist.length + 1, hour: event.toLocaleTimeString(), temperature: temp + 1 }])
 
+      storage = JSON.stringify([{ hour: event.toLocaleTimeString(), temperature: temp + 1 }])
+      localStorage.setItem(JSON.stringify(hist.length + 1), storage)
     }
   }
 
   const downTemp = () => {
     temp > 0 ? setTemp(temp - 1) : setTemp(temp)
     if (temp > 0) {
-      setHist([...hist, {id: hist.length + 1, hour: event.toLocaleTimeString(), temperature: temp - 1}])
+      setHist([...hist, { id: hist.length + 1, hour: event.toLocaleTimeString(), temperature: temp - 1 }])
 
+      storage= JSON.stringify([{ id: hist.length + 1, hour: event.toLocaleTimeString(), temperature: temp - 1 }])
+      localStorage.setItem(JSON.stringify(hist.length + 1), storage)
     }
 
   }
 
   const reset = () => {
     setTemp(20)
-    setHist([{id: 1, hour: event.toLocaleTimeString(), temperature: 20}]);
+    setHist([{ id: 1, hour: event.toLocaleTimeString(), temperature: 20 }]);
+
+    localStorage.clear("");
+    storage= JSON.stringify([{ hour: event.toLocaleTimeString(), temperature:20 }])
+    localStorage.setItem("1", storage)
   }
-
-
 
   return (
     <>
